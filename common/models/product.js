@@ -12,7 +12,7 @@ module.exports = function (Product) {
         if (!validQuantity(quantity)) throw `Invalid quantity ${quantity}`;
 
         return {
-            result: `you bought ${quantity} product(s) of type '${this.name}'`,
+            status: `you bought ${quantity} product(s) of type '${this.name}'`,
         };
     };
 
