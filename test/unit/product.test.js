@@ -57,4 +57,14 @@ describe('Validation', function () {
                 expect(err.statusCode).to.be.equal(422);
             });
     });
+
+    it('should reject a low price', function () {
+        return Product.create({ name: 'product', price: 98 })
+            .then((res) => Promise.reject('Product should not be created'))
+            .catch((err) => {
+                expect(err.message)
+                    .to.contain('should be higher than the minimal price');
+                expect(err.statusCode).to.be.equal(422);
+            });
+    });
 });
