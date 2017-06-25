@@ -1,0 +1,20 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "extends": "loopback",
+    "rules": {
+        "space-before-function-paren": [
+            "error",
+            "always"
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ]
+    }
+}
