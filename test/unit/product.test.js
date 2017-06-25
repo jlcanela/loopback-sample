@@ -47,4 +47,14 @@ describe('Validation', function () {
                 expect(err.statusCode).to.be.equal(422);
             });
     });
+
+    it('should reject a price < 0', function () {
+        return Product.create({ name: 'product', price: -1 })
+            .then((res) => Promise.reject('Product should not be created'))
+            .catch((err) => {
+                expect(err.message)
+                    .to.contain('Price should be a positive integer');
+                expect(err.statusCode).to.be.equal(422);
+            });
+    });
 });
