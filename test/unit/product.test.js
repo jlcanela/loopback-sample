@@ -29,11 +29,22 @@ describe('Custom method', function () {
 describe('Validation', function () {
     it('should reject a name < 3 chars', async function () {
         return Product.create({ name: 'a', price: 299 })
-        .then((res) => Promise.reject('Product should not be created'))
-        .catch((err) => {
-            expect(err.message)
-            .to.contain('name should be at least 3 characters');
-            expect(err.statusCode).to.be.equal(422);
-        });
+            .then((res) => Promise.reject('Product should not be created'))
+            .catch((err) => {
+                expect(err.message)
+                    .to.contain('name should be at least 3 characters');
+                expect(err.statusCode).to.be.equal(422);
+            });
+    });
+
+    it('should reject a duplicate name', async function () {
+        await Product.create({ name: 'good product', price: 299 });
+        return Product.create({ name: 'good product', price: 299 })
+            .then((res) => Promise.reject('Product should not be created'))
+            .catch((err) => {
+                expect(err.message)
+                    .to.contain('Details: `name` is not unique');
+                expect(err.statusCode).to.be.equal(422);
+            });
     });
 });
