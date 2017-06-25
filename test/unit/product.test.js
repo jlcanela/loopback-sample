@@ -67,4 +67,13 @@ describe('Validation', function () {
                 expect(err.statusCode).to.be.equal(422);
             });
     });
+
+    it('should store a valid Product', function () {
+        return Product.create({ name: 'all good', price: 200 })
+            .then((res) => {
+                expect(res.name)
+                    .to.contain('all good');
+                expect(res.price).to.be.equal(200);
+            });
+    });
 });
