@@ -7,8 +7,7 @@ const Product = app.models.Product;
 describe('it should resolve', function () {
     it('a product.find', function () {
         return Product
-            .find()
-            .then((res) => console.log(res));
+            .find();
     });
 });
 
@@ -25,4 +24,16 @@ describe('Custom method', function () {
             const result = product.buy(-10);
             return expect(result).to.be.rejectedWith(/Invalid quantity -10/);
         });
+});
+
+describe('Validation', function () {
+    it('should reject a name < 3 chars', async function () {
+        return Product.create({ name: 'a', price: 299 })
+        .then((res) => Promise.reject('Product should not be created'))
+        .catch((err) => {
+            expect(err.message)
+            .to.contain('name should be at least 3 characters');
+            expect(err.statusCode).to.be.equal(422);
+        });
+    });
 });
